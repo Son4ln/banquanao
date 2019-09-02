@@ -1,3 +1,12 @@
 ./websitequanao/Web.config
 ./websitequanao/Web.Debug.config
 ./websitequanao/Web.Release.config
+.vs/websitequanao/config/applicationhost.config
+.vs/websitequanao/v16/.suo
+.vs/websitequanao/v16/Server/sqlite3/db.lock
+.vs/websitequanao/v16/Server/sqlite3/storage.ide
+.vs/websitequanao/v16/Server/sqlite3/storage.ide-shm
+.vs/websitequanao/v16/Server/sqlite3/storage.ide-wal
+websitequanao/Web.config
+websitequanao/Web.Debug.config
+websitequanao/Web.Release.config
