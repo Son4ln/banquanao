@@ -1,0 +1,89 @@
+﻿@model IEnumerable<websitequanao.Models.SanPham>
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/Web/_LayoutHome.cshtml";
+}
+
+@RenderPage("~/Views/Shared/Web/Partial/_headerpage.cshtml")
+
+<!--================Single Product Area =================-->
+
+@foreach(var i in Model)
+{
+    <div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+                <div class="owl-carousel owl-theme s_Product_carousel">
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="@i.Hinh" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3>@i.Ten</h3>
+                    
+                        @if (@i.GiamGia > 0)
+                        {
+                            <h2>
+                                <span class="del">@string.Format("{0:0,0}", @i.DonGia)</span> -
+                                @string.Format("{0:0,0 VND}", @i.DonGia - (@i.DonGia * @i.GiamGia / 100))
+                            </h2>
+                        }
+                        else
+                        {
+                            <h2>
+                                 @string.Format("{0:0,0 VND}", @i.DonGia)
+                            </h2>
+                        }
+                    
+                    <ul class="list" style="margin-top:80px">
+                        <li>
+                            <a class="active" href="@Url.Action("Index", "Brands", new { id = i.ID_LoaiSP})"><span>Loại</span> : @i.LoaiSP.Ten</a>
+                        </li>
+                        <li><a href="#"><span>Trạng thái</span> : Còn hàng</a></li>
+                    </ul>
+                    <p>                      
+                        @Html.Raw( @i.MoTa)
+                    </p>
+                    <div class="product_count">
+                        <label for="qty">Số lượng:</label>
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                class="increase items-count" type="button">
+                            <i class="ti-angle-left"></i>
+                        </button>
+                        <input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                class="reduced items-count" type="button">
+                            <i class="ti-angle-right"></i>
+                        </button>
+                        <a class="button primary-btn" href="#">Thêm vào giỏ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+<section class="related-product-area section-margin--small">
+    <div class="container">
+        <div class="section-intro pb-60px">
+            <p>Danh sách sản phẩm mới nhất</p>
+            <h2>MỚI <span class="section-intro__style">NHẤT</span></h2>
+        </div>
+
+        <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+
+            @* Danh sách sản phẩm mới nhất *@
+            @RenderPage("~/Views/Shared/Web/Partial/_productnew.cshtml")
+
+        </div>
+    </div>
+</section>
+<!--================End Single Product Area =================-->
+
+@RenderPage("~/Views/Shared/Web/Partial/_subscribe.cshtml")
+

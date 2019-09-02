@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/Web/_LayoutHome.cshtml";
+}
+
+@RenderPage("~/Views/Shared/Web/Partial/_headerpage.cshtml")
+
+  <!--================Blog Categorie Area =================-->
+<section class="blog_categorie_area">
+    <div class="container">
+        <div class="row">
+            @foreach(var i in ViewBag.dsbv)
+            {
+            <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+                <div class="categories_post">
+                    <img class="blog-img card-img rounded-0 " src="@i.Hinh" alt="post">
+                    <div class="categories_details">
+                        <div class="categories_text">
+                            <a href="@Url.Action("Index", "Blogs", new { id = i.ID})">
+                                <h5>@i.Ten</h5>
+                            </a>
+                            <div class="border_line"></div>
+                            <p>Tin tức của cửa hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }                      
+        </div>
+    </div>
+</section>
+<!--================Blog Categorie Area =================-->
+<!--================Blog Area =================-->
+<section class="blog_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_left_sidebar">
+
+                    @foreach (var i in ViewBag.tttheoloai)
+                    {
+                        <article class="row blog_item">
+                        <div class="col-md-3">
+                            <div class="blog_info text-right">
+                                <div class="post_tag">
+                                    @foreach (var y in ViewBag.dsbv)
+                                    {
+                                        string s = "";
+                                        if (@y.ID == @i.ID_LoaiBV)
+                                        {
+                                            s = "active";
+                                        }                                                                                                                                       
+                                        <a class="@s" href="@Url.Action("Index", "Blogs", new { id = y.ID })">@y.Ten, </a>
+                                    }
+                                    
+                                </div>
+                                <ul class="blog_meta list">
+                                    <li>
+                                        @{
+                                            string[] w = i.NguoiDung.HoTen.Split(' ');
+                                            string ten = w[w.Length - 1];
+                                        }
+                                        @ten
+                                        <i class="lnr lnr-user"></i>
+                                    </li>
+                                    <li>
+                                        @{
+                                            DateTime date = @i.NgayDang.Date;
+                                        }
+
+                                        @date.ToShortDateString()
+                                        <i class="lnr lnr-calendar-full"></i>
+                                    </li>
+                                    <li>
+                                        10 Lượt xem
+                                        <i class="lnr lnr-eye"></i>
+                                    </li>
+                                    <li>
+                                        0 Bình luận
+                                        <i class="lnr lnr-bubble"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="blog_post">
+                                <img class="blog-img-1" src="@i.Hinh" alt="">
+                                <div class="blog_details">
+                                    <a href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">
+                                        <h2>@i.Ten</h2>
+                                    </a>
+                                    <p>@Html.Raw(@i.TomTat.Substring(0, 100))...</p>
+                                    <a class="button button-blog" href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">Đọc thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    }
+                    
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-left"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a href="#" class="page-link">01</a>
+                            </li>
+                            <li class="page-item ">
+                                <a href="#" class="page-link">02</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">03</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">04</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">09</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-right"></span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm tin tức">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="lnr lnr-magnifier"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                        <div class="br"></div>
+                    </aside>
+                    
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Tin tức mới nhất</h3>
+
+                        @foreach (var i in ViewBag.tt_mn)
+                        {
+                        <div class="media post_item">
+                            <img class="blog-img-mn" src="@i.Hinh" alt="post">
+                            <div class="media-body">
+                                <a href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">
+                                    <h3>@i.Ten</h3>
+                                </a>
+                                <p>Ngày đăng: @i.NgayDang.ToShortDateString()</p>
+                            </div>
+                        </div>
+                        }                       
+
+                        <div class="br"></div>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@RenderPage("~/Views/Shared/Web/Partial/_followus.cshtml")
+<!--================Blog Area =================-->
+
+

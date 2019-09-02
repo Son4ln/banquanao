@@ -1,0 +1,147 @@
+﻿@model IEnumerable<websitequanao.Models.BaiViet>
+@{
+    ViewBag.Title = "Chi tiết tin tức";
+    Layout = "~/Views/Shared/Web/_LayoutHome.cshtml";
+}
+
+@RenderPage("~/Views/Shared/Web/Partial/_headerpage.cshtml")
+
+  <!--================Blog Area =================-->
+<section class="blog_area single-post-area py-80px section-margin--small">
+    <div class="container">
+        <div class="row" style="margin-bottom:100px">
+
+            @foreach(var i in Model)
+            {
+            <div class="col-lg-8 posts-list">
+                <div class="single-post row">
+                    <div class="col-lg-12">
+                        <div class="feature-img">
+                            <img class="img-fluid blog-img-detail" src="@i.Hinh" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-3  col-md-3">
+                        <div class="blog_info text-right">
+                            <div class="post_tag">
+                                @foreach (var y in ViewBag.dsbv)
+                                {
+                                    string s = "";
+                                    if (@y.ID == @i.ID_LoaiBV)
+                                    {
+                                        s = "active";
+                                    }
+                                    <a class="@s" href="@Url.Action("Index", "Blogs", new { id = y.ID })">@y.Ten, </a>
+                                }
+                            </div>
+                            <ul class="blog_meta list">
+                                <li>
+                                    @{
+                                        string[] w = i.NguoiDung.HoTen.Split(' ');
+                                        string ten = w[w.Length - 1];
+                                    }
+                                    @ten
+                                    <i class="lnr lnr-user"></i>
+
+                                </li>
+                                <li>
+                                    @{
+                                        DateTime date = DateTime.Parse(i.NgayDang.ToString());
+                                    }
+                                    @date.ToShortDateString()
+                                    <i class="lnr lnr-calendar-full"></i>
+                                </li>
+                                <li>
+                                    10 Lượt xem
+                                    <i class="lnr lnr-eye"></i>
+                                </li>
+                                <li>
+                                    0 Bình luận
+                                    <i class="lnr lnr-bubble"></i>
+                                </li>
+                            </ul>
+                            <ul class="social-links">
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-behance"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 blog_details">
+                        <h2>@i.Ten</h2>
+                        <p class="excert">
+                            @Html.Raw(@i.TomTat)
+                        </p>                   
+                    </div>
+                    <div class="col-lg-12">
+                        
+                        <div class="row">
+                            <div class="col-lg-12 mt-4">
+                                <p>
+                                    @Html.Raw(@i.NoiDung)
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            }
+
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm tin tức">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="lnr lnr-magnifier"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                        <div class="br"></div>
+                    </aside>
+                    
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Popular Posts</h3>                      
+                        @foreach (var i in ViewBag.tt_mn)
+                        {
+                            <div class="media post_item">
+                                <img class="blog-img-mn" src="@i.Hinh" alt="post">
+                                <div class="media-body">
+                                    <a href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">
+                                        <h3>@i.Ten</h3>
+                                    </a>
+                                    <p>Ngày đăng: @i.NgayDang.ToShortDateString()</p>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="br"></div>
+                    </aside>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+@RenderPage("~/Views/Shared/Web/Partial/_followus.cshtml")

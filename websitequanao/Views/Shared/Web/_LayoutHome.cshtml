@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="~/Static/img/Fevicon.png" type="image/png" />
+    <link rel="stylesheet" href="~/Static/vendors/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Static/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Static/vendors/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/Static/vendors/nice-select/nice-select.css" />
+
+    <link rel="stylesheet" href="~/Static/vendors/linericon/style.css">
+
+    <link rel="stylesheet" href="~/Static/vendors/owl-carousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/Static/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Static/css/style.css">
+</head>
+<body>
+    
+    <!-- Header -->
+    @RenderPage("~/Views/Shared/Web/Partial/_header.cshtml")
+
+    <!-- Body -->
+    @RenderBody()
+
+    <!-- Footer -->
+    @RenderPage("~/Views/Shared/Web/Partial/_footer.cshtml")
+
+    <script src="~/Static/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Static/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/Static/vendors/skrollr.min.js"></script>
+    <script src="~/Static/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Static/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/Static/vendors/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Static/vendors/mail-script.js"></script>
+    <script src="~/Static/js/main.js"></script>
+
+    <script>
+        $("a.nav-link").click(e => handleNavClick(e));
+        function handleNavClick(e) {
+            e.preventDefault();
+            window.location.href = $(e.target).attr("href");
+        }
+
+        function redirectClick(e) {
+            //console.log($(e).data());
+            window.location.href = $(e).attr("href");
+        }
+    </script>
+</body>
+</html>

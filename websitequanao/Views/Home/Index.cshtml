@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/Web/_LayoutHome.cshtml";
+}
+<main class="site-main">
+
+    <!--================ Hero banner start =================-->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="row no-gutters align-items-center pt-60px">
+                <div class="col-5 d-none d-sm-block">
+                    <div class="hero-banner__img">
+                        <img class="img-fluid" src="~/Static/img/home/hero-banner.png" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+                    <div class="hero-banner__content">
+                        <h4>Mua sắm là niềm vui</h4>
+                        <h2>Tôi không tạo ra thời trang 
+                        <br />Tôi chính là thời trang</h2>
+                        <p style="width:25%; margin-left:300px ">- Coco Chanel -</p>
+                        <p>Chúng tôi, người luôn nỗ lực không ngừng trong việc đa dạng hoá dòng sản phẩm, mẫu mã thiết kế để mang đến cái nhìn mới về thời trang cho khách hàng.</p>
+                        @Html.ActionLink("MUA NGAY", "Product", "Home", null, new { @class = "button button-hero" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ Hero banner start =================-->
+    <!--================ Hero Carousel start =================-->
+    <section class="section-margin mt-0">
+        <div class="owl-carousel owl-theme hero-carousel">
+
+            @*3 loại sản phẩm phổ biến*@
+            @foreach(var i in ViewBag.dssp)
+            {
+                <div class="hero-carousel__slide">
+                <img src="@i.Hinh" alt="" class="img-fluid">
+                <a href="@Url.Action("Index", "Brands", new { id = i.ID})" class="hero-carousel__slideOverlay">
+                    <h3>@i.Ten</h3>
+                </a>
+            </div>
+            }
+
+        </div>
+    </section>
+    <!--================ Hero Carousel end =================-->
+    <!-- ================ trending product section start ================= -->
+    <section class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Danh sách sản phẩm khuyến mãi</p>
+                <h2>KHUYẾN <span class="section-intro__style">MÃI</span></h2>
+            </div>
+            <div class="row">
+
+                @*Danh sách sản phẩm khuyến mãi*@
+                @foreach(var i in ViewBag.sp_km)
+                {
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img class="card-img" src="@i.Hinh" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button href="@Url.Action("Index", "Products", new { id = i.ID})" onclick="redirectClick(this)"><i class="ti-search"></i></button>
+                                </li>
+                                <li><button><i class="ti-shopping-cart"></i></button></li>
+                                <li><button><i class="ti-heart"></i></button></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <p>@i.LoaiSP.Ten</p>
+                            <h4 class="card-product__title">
+                                <a href="@Url.Action("Index", "Products" , new { id=i.ID})">@i.Ten</a>
+                            </h4>
+                            <p class="card-product__price">
+                                <span class="del">@string.Format("{0:0,0}", @i.DonGia)</span> - 
+                                @string.Format("{0:0,0 VND}", @i.DonGia - (@i.DonGia * @i.GiamGia / 100))
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                }      
+                        
+            </div>
+        </div>
+    </section>
+    <!-- ================ trending product section end ================= -->
+    <!-- ================ offer section start ================= -->
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5">
+                    <div class="offer__content text-center">
+                        <h3>Giảm giá đến 20%</h3>
+                        <h4>Mừng Quốc Khánh</h4>
+                        <p>Áp dụng cho tất cả cửa hàng</p>
+
+                        @Html.ActionLink("MUA NGAY", "Index", "Brands", new { id = 0}, new { @class = "button button--active mt-3 mt-xl-4" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ offer section end ================= -->
+    <!-- ================ Best Selling item  carousel ================= -->
+    <section class="section-margin calc-60px">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Danh sách sản phẩm mới nhất</p>
+                <h2>MỚI <span class="section-intro__style">NHẤT</span></h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+
+                @* Danh sách sản phẩm mới nhất *@
+                @RenderPage("~/Views/Shared/Web/Partial/_productnew.cshtml")    
+                          
+            </div>
+        </div>
+    </section>
+    <!-- ================ Best Selling item  carousel end ================= -->
+    <!-- ================ Blog section start ================= -->
+    <section class="blog">
+        <div class="container">
+            <div class="section-intro pb-60px">
+                <p>Tin tức mới nhất từ cửa hàng</p>
+                <h2>Tin <span class="section-intro__style">Tức</span></h2>
+            </div>
+
+            <div class="row">
+            @{
+                foreach(var i in ViewBag.tt_mn)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                    <div class="card card-blog">
+                        <div class="card-blog__img">
+                            <img class="card-img rounded-0 blog-img" src="@i.Hinh" alt="">
+                        </div>
+                        <div class="card-body">
+                            <ul class="card-blog__info">
+                                <li>Đăng bởi @i.NguoiDung.HoTen</li>
+                                <li><a href="@Url.Action("Index", "Blogs", new { id=i.ID_LoaiBV })"><i class="ti-check"></i> @i.LoaiBV.Ten</a></li>
+                            </ul>
+                            <h4 class="card-blog__title"><a href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">@i.Ten</a></h4>
+                            <p>@Html.Raw(@i.TomTat.Substring(0,100))...</p>
+                            <a class="card-blog__link" href="@Url.Action("Blog_Detail", "Blogs", new { id=i.ID})">Đọc thêm<i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                } 
+            }
+            </div>
+        </div>
+    </section>
+    <!-- ================ Blog section end ================= -->   
+</main>
+@RenderPage("~/Views/Shared/Web/Partial/_subscribe.cshtml")
+

@@ -1,0 +1,65 @@
+﻿<header class="header_area">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand logo_h" href="@Url.Action("Index","Home")"><img src="~/images/logo/logo1.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+                        <li class="nav-item active">
+                            @Html.ActionLink("Trang chủ", "Index", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item submenu dropdown">                           
+                            <a href="@Url.Action("Index", "Brands", new { id = 0})" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Sản phẩm</a>
+                            <ul class="dropdown-menu">
+                                @*Danh sách loại sản phẩm*@
+                                @foreach (var item in ViewBag.dssp)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@Url.Action("Index", "Brands", new { id = item.ID })"> @item.Ten </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="@Url.Action("Index", "Blogs", new { id = 0})" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">Tin tức</a>
+                            <ul class="dropdown-menu">
+
+                                @*Danh sách loại bài viết*@
+                                @foreach (var item in ViewBag.dsbv)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@Url.Action("Index", "Blogs", new { id = item.ID })"> @item.Ten </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Liên hệ", "Contact", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Giới thiệu", "About", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+
+                    <ul class="nav-shop">
+                        <li class="nav-item"><button><i class="ti-search"></i></button></li>
+                        <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "button button-header" })
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
