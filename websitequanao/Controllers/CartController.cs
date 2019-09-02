@@ -137,5 +137,12 @@ namespace websitequanao.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult removeItem(int masp)
+        {
+            List<CartModel> lscart = GioHang();
+            lscart.RemoveAll(n => n.MASP == masp);
+            return RedirectToAction("Index");
+        }
     }
 }
